@@ -1,0 +1,11 @@
+functions:
+  userNotificationSend:
+    type: resolver
+    handler:
+      code: src/resolvers/userNotificationSend/handler.ts
+    schema: src/resolvers/userNotificationSend/schema.graphql
+  userPreparedNotificationsList:
+    type: resolver
+    handler:
+      code: src/resolvers/userPreparedNotificationsList/handler.ts
+    schema: src/resolvers/userPreparedNotificationsList/schema.graphql

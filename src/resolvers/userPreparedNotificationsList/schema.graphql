@@ -1,0 +1,15 @@
+type UserPreparedNotification {
+  id: ID!
+  title: String!
+  message: String!
+  readed: Boolean!
+}
+
+type UserPreparedNotificationsResponse {
+  items: [UserPreparedNotification!]!
+  count: Int!
+}
+
+extend type Query {
+  userPreparedNotificationsList: UserPreparedNotificationsResponse
+}

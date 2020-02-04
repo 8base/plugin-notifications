@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should returns user prepared notifications list. 1`] = `
+"query UserNotifications {
+  userNotificationsList {
+    items {
+      notification {
+        template {
+          entityType
+          title
+          message
+        }
+        actor {
+          id
+          firstName
+          lastName
+          email
+        }
+        entity {
+          post {
+            id
+            createdAt
+            updatedAt
+            title
+            message
+            hidden
+          }
+          comment {
+            id
+            createdAt
+            updatedAt
+            message
+          }
+        }
+      }
+      id
+      readed
+    }
+    count
+  }
+}
+"
+`;
