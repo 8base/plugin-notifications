@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import * as Handlebars from 'handlebars';
-import { generateNotificationsQuery } from './generateNotificationsQuery';
-import { NOTIFICATION_ENTITIES_SCHEMA_QUERY } from './queries';
+import { generateNotificationsQuery, TableSchema } from './generateNotificationsQuery';
+import { TABLES_SCHEMA_QUERY } from './queries';
 
 type UserNotification = {
   id: string;
@@ -37,9 +37,9 @@ type UserPreparedNotificationsListResponse = {
 };
 
 export default async (event: any, ctx: any): Promise<UserPreparedNotificationsListResponse> => {
-  const notificationEntitiesSchemaResponse = await ctx.api.gqlRequest(NOTIFICATION_ENTITIES_SCHEMA_QUERY);
+  const tablesSchemaResponse = await ctx.api.gqlRequest(TABLES_SCHEMA_QUERY);
 
-  const schema = R.path(['system', 'table'], notificationEntitiesSchemaResponse);
+  const schema: TableSchema[] | undefined = R.path(['system', 'tablesList', 'items'], tablesSchemaResponse);
 
   if (!schema) {
     throw new Error(`Error during get notifications entities table schema.`);

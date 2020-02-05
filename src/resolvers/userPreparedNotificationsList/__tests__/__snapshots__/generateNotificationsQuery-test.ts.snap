@@ -21,6 +21,18 @@ exports[`Should returns user notifications. 1`] = `
             id
             createdAt
             updatedAt
+            createdBy {
+              id
+              createdAt
+              updatedAt
+              email
+              status
+              origin
+              is8base
+              firstName
+              lastName
+              timezone
+            }
             title
             message
             hidden
@@ -29,7 +41,27 @@ exports[`Should returns user notifications. 1`] = `
             id
             createdAt
             updatedAt
+            createdBy {
+              id
+              createdAt
+              updatedAt
+              email
+              status
+              origin
+              is8base
+              firstName
+              lastName
+              timezone
+            }
             message
+            post {
+              id
+              createdAt
+              updatedAt
+              title
+              message
+              hidden
+            }
           }
         }
       }

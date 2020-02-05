@@ -1,6 +1,6 @@
 import handler from '../handler';
-import { NOTIFICATIONS_LIST_RESPONSE, NOTIFICATION_ENTITIES_SCHEMA_RESPONSE } from '../__fixtures__';
-import { NOTIFICATION_ENTITIES_SCHEMA_QUERY } from '../queries';
+import { NOTIFICATIONS_LIST_RESPONSE, TABLES_SCHEMA_RESPONSE } from '../__fixtures__';
+import { TABLES_SCHEMA_QUERY } from '../queries';
 
 const CONTEXT = {
   api: {
@@ -13,13 +13,13 @@ afterEach(() => {
 });
 
 it('Should returns user prepared notifications list.', async () => {
-  CONTEXT.api.gqlRequest.mockResolvedValueOnce(NOTIFICATION_ENTITIES_SCHEMA_RESPONSE);
+  CONTEXT.api.gqlRequest.mockResolvedValueOnce(TABLES_SCHEMA_RESPONSE);
 
   CONTEXT.api.gqlRequest.mockResolvedValueOnce(NOTIFICATIONS_LIST_RESPONSE);
 
   const result = await handler({}, CONTEXT);
 
-  expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, NOTIFICATION_ENTITIES_SCHEMA_QUERY);
+  expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, TABLES_SCHEMA_QUERY);
 
   expect(CONTEXT.api.gqlRequest.mock.calls[1][0]).toMatchSnapshot();
 

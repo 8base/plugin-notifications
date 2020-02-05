@@ -25,24 +25,23 @@ export const USER_NOTIFICATIONS_LIST_QUERY = gql`
   }
 `;
 
-export const NOTIFICATION_ENTITIES_SCHEMA_QUERY = gql`
-  query NotificationEntitiesSchema {
+export const TABLES_SCHEMA_QUERY = gql`
+  query TablesSchema {
     system {
-      table(name: "NotificationEntities") {
-        id
-        fields {
+      tablesList {
+        items {
+          id
           name
-          displayName
-          fieldType
-          isSystem
-          relation {
-            refTable {
-              name
-              fields {
+          fields {
+            name
+            displayName
+            fieldType
+            isList
+            isSystem
+            relation {
+              refTable {
                 id
                 name
-                fieldType
-                isSystem
               }
             }
           }
