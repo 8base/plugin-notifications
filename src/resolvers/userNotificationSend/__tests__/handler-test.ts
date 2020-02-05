@@ -14,7 +14,7 @@ afterEach(() => {
 it('Should send a new user notification.', async () => {
   CONTEXT.api.gqlRequest.mockResolvedValueOnce({
     user: {
-      id: 'userId',
+      id: 'currentUserId',
     },
   });
 
@@ -31,6 +31,9 @@ it('Should send a new user notification.', async () => {
                 },
                 {
                   id: 'userNotifierId2',
+                },
+                {
+                  id: 'currentUserId',
                 },
               ],
             },
@@ -78,7 +81,7 @@ it('Should send a new user notification.', async () => {
     NOTIFICATION_CREATE_MUTATION,
     {
       data: {
-        actor: { connect: { id: 'userId' } },
+        actor: { connect: { id: 'currentUserId' } },
         entity: { create: { post: { connect: { id: 'entityId' } } } },
         clientNotifications: {
           create: [

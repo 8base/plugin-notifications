@@ -32,6 +32,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     R.pathOr([], ['roles', 'items']),
     R.map(R.pathOr([], ['users', 'items'])),
     R.flatten,
+    R.reject(R.propEq('id', userId)),
   )(notificationTemplate);
 
   await ctx.api.gqlRequest(
