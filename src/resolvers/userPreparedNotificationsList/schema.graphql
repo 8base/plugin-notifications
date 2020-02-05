@@ -10,6 +10,6 @@ type UserPreparedNotificationsResponse {
   count: Int!
 }
 
-extend type Query {
+extend type NotificationsQuery {
   userPreparedNotificationsList: UserPreparedNotificationsResponse
 }

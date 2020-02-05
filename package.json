@@ -4,7 +4,9 @@
   "description": "8base Plugin Notifications",
   "scripts": {
     "test": "jest",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
+    "to-project": "find . -name '*.graphql' -exec sed -i '' \"s/type NotificationsMutation/type Mutation/g; s/type NotificationsQuery/type Query/g;\" {} +",
+    "to-plugin": "find . -name '*.graphql' -exec sed -i '' \"s/type Mutation/type NotificationsMutation/g; s/type Query/type NotificationsQuery/g;\" {} +"
   },
   "dependencies": {
     "@types/handlebars": "^4.1.0",

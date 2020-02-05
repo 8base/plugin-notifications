@@ -2,6 +2,6 @@ type UserNotificationSendResponse {
   success: Boolean!
 }
 
-extend type Mutation {
+extend type NotificationsMutation {
   userNotificationSend(entityId: ID!, notificationTemplateId: ID!): UserNotificationSendResponse
 }

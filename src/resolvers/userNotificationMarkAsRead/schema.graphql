@@ -2,6 +2,6 @@ type UserNotificationMarkAsReadResponse {
   success: Boolean!
 }
 
-extend type Mutation {
+extend type NotificationsMutation {
   userNotificationMarkAsRead(id: ID!): UserNotificationMarkAsReadResponse
 }
