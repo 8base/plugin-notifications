@@ -2236,6 +2236,7 @@ export const NOTIFICATIONS_LIST_RESPONSE = {
             lastName: 'Osipov',
           },
         },
+        createdAt: '2019-10-30T15:05:48.988Z',
         id: 'notficationId',
         readed: false,
       },

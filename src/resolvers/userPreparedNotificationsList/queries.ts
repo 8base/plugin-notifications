@@ -17,6 +17,7 @@ export const USER_NOTIFICATIONS_LIST_QUERY = gql`
             email
           }
         }
+        createdAt
         id
         readed
       }

@@ -1,8 +1,9 @@
 type UserPreparedNotification {
-  id: ID!
-  title: String!
-  message: String!
-  readed: Boolean!
+  id: ID
+  createdAt: DateTime
+  title: String
+  message: String
+  readed: Boolean
 }
 
 type UserPreparedNotificationsResponse {

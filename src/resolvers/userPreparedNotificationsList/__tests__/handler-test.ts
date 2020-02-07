@@ -33,6 +33,7 @@ it('Should returns user prepared notifications list.', async () => {
           message: 'Vladimir Osipov created a new post "post title"',
           id: 'notficationId',
           readed: false,
+          createdAt: '2019-10-30T15:05:48.988Z',
         },
       ],
       count: 0,
