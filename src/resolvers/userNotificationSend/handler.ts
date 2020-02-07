@@ -35,6 +35,10 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     R.reject(R.propEq('id', userId)),
   )(notificationTemplate);
 
+  let entityItem = pluralize(notificationTemplate.entityType, 1);
+
+  entityItem = entityItem.charAt(0).toLowerCase() + entityItem.slice(1);
+
   await ctx.api.gqlRequest(
     NOTIFICATION_CREATE_MUTATION,
     {
@@ -58,7 +62,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
         },
         entity: {
           create: {
-            [pluralize(notificationTemplate.entityType, 1).toLowerCase()]: {
+            [entityItem]: {
               connect: {
                 id: entityId,
               },

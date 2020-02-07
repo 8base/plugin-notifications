@@ -20,7 +20,7 @@ it('Should send a new user notification.', async () => {
 
   CONTEXT.api.gqlRequest.mockResolvedValueOnce({
     notificationTemplate: {
-      entityType: 'Posts',
+      entityType: 'MyPosts',
       roles: {
         items: [
           {
@@ -82,7 +82,7 @@ it('Should send a new user notification.', async () => {
     {
       data: {
         actor: { connect: { id: 'currentUserId' } },
-        entity: { create: { post: { connect: { id: 'entityId' } } } },
+        entity: { create: { myPost: { connect: { id: 'entityId' } } } },
         clientNotifications: {
           create: [
             {
