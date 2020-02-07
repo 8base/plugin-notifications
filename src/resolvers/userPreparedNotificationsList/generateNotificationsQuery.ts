@@ -87,10 +87,11 @@ export const generateNotificationsQuery = (tablesSchema: TableSchema[]) => {
       R.propEq('isSystem', true),
       R.propEq('isList', true),
       R.propEq('name', 'notification'),
+      R.propEq('fieldType', 'SMART'),
       R.complement(R.propEq('fieldType', 'RELATION')),
     ]),
-    R.anyPass([R.propEq('isList', true)]),
-    R.anyPass([R.propEq('fieldType', 'RELATION'), R.propEq('fieldType', 'FILE')]),
+    R.anyPass([R.propEq('isList', true), R.propEq('fieldType', 'SMART')]),
+    R.anyPass([R.propEq('fieldType', 'RELATION'), R.propEq('fieldType', 'FILE'), R.propEq('fieldType', 'SMART')]),
   ]);
 
   const queryLens = R.lensPath([
