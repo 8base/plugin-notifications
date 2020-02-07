@@ -53,7 +53,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
             id: userId,
           },
         },
-        clientNotifications: {
+        userNotifications: {
           create: notifiers.map(notifier => ({
             notifier: {
               connect: notifier,
