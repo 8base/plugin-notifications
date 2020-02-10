@@ -16,12 +16,28 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     user: { id: userId },
   } = await ctx.api.gqlRequest(CURRENT_USER__QUERY);
 
-  const { entityId, notificationTemplateId } = event.data;
+  const { entityId, notificationTemplateId, filter } = event.data;
+
+  let userFilter = {
+    AND: [
+      {
+        id: {
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          not_equals: '__loggedInUserId',
+        },
+      },
+    ],
+  };
+
+  if (filter) {
+    userFilter = R.over(R.lensProp('AND'), R.append(filter), userFilter);
+  }
 
   const { notificationTemplate } = await ctx.api.gqlRequest(
     NOTIFICATION_TEMPLATE_QUERY,
     {
       id: notificationTemplateId,
+      userFilter,
     },
     {
       checkPermissions: false,
@@ -32,7 +48,6 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     R.pathOr([], ['roles', 'items']),
     R.map(R.pathOr([], ['users', 'items'])),
     R.flatten,
-    R.reject(R.propEq('id', userId)),
   )(notificationTemplate);
 
   let entityItem = pluralize(notificationTemplate.entityType, 1);

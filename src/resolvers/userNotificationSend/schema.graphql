@@ -3,5 +3,5 @@ type UserNotificationSendResponse {
 }
 
 extend type NotificationsMutation {
-  userNotificationSend(entityId: ID!, notificationTemplateId: ID!): UserNotificationSendResponse
+  userNotificationSend(entityId: ID!, notificationTemplateId: ID!, filter: UserFilter): UserNotificationSendResponse
 }

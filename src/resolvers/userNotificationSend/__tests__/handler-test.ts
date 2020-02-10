@@ -32,9 +32,6 @@ it('Should send a new user notification.', async () => {
                 {
                   id: 'userNotifierId2',
                 },
-                {
-                  id: 'currentUserId',
-                },
               ],
             },
           },
@@ -70,6 +67,16 @@ it('Should send a new user notification.', async () => {
     NOTIFICATION_TEMPLATE_QUERY,
     {
       id: 'notificationTemplateId',
+      userFilter: {
+        AND: [
+          {
+            id: {
+              // eslint-disable-next-line @typescript-eslint/camelcase
+              not_equals: '__loggedInUserId',
+            },
+          },
+        ],
+      },
     },
     {
       checkPermissions: false,
