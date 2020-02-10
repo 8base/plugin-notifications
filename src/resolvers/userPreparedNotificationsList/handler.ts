@@ -5,7 +5,7 @@ import { TABLES_SCHEMA_QUERY } from './queries';
 
 type UserNotification = {
   id: string;
-  readed: boolean;
+  read: boolean;
   createdAt: string;
   notification: {
     entity: object;
@@ -27,7 +27,7 @@ type UserPreparedNotification = {
   id: string;
   title: string;
   message: string;
-  readed: boolean;
+  read: boolean;
 };
 
 type UserPreparedNotificationsListResponse = {
@@ -58,13 +58,13 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
   const count = R.pathOr(0, ['userNotificationsList', 'count'], userNotificationsListResponse);
 
   const userNotifications: UserPreparedNotification[] = R.map(
-    ({ id, readed, createdAt, notification: { actor, template, entity } }) => {
+    ({ id, read, createdAt, notification: { actor, template, entity } }) => {
       const context = { ...entity, actor };
 
       const title = Handlebars.compile(template.title)(context);
       const message = Handlebars.compile(template.message)(context);
 
-      return { title, message, id, readed, createdAt };
+      return { title, message, id, read, createdAt };
     },
     notifications,
   );

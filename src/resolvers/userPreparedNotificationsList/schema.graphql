@@ -3,7 +3,7 @@ type UserPreparedNotification {
   createdAt: DateTime
   title: String
   message: String
-  readed: Boolean
+  read: Boolean
 }
 
 type UserPreparedNotificationsResponse {

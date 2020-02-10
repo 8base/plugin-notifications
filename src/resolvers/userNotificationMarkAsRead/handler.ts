@@ -14,7 +14,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationMarkAsReadR
   await ctx.api.gqlRequest(USER_NOTIFICATION_UPDATE_MUTATION, {
     data: {
       id,
-      readed: true,
+      read: true,
     },
   });
 

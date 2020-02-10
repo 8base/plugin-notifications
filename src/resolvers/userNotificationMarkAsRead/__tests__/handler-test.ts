@@ -23,7 +23,7 @@ it('Should mark notification as read.', async () => {
   expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, USER_NOTIFICATION_UPDATE_MUTATION, {
     data: {
       id: 'notificationId',
-      readed: true,
+      read: true,
     },
   });
 

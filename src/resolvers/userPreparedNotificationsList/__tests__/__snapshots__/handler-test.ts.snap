@@ -67,7 +67,7 @@ exports[`Should returns user prepared notifications list. 1`] = `
       }
       createdAt
       id
-      readed
+      read
     }
     count
   }
