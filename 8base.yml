@@ -1,9 +1,4 @@
 functions:
-  userNotificationMarkAsRead:
-    type: resolver
-    handler:
-      code: src/resolvers/userNotificationMarkAsRead/handler.ts
-    schema: src/resolvers/userNotificationMarkAsRead/schema.graphql
   userNotificationSend:
     type: resolver
     handler:
