@@ -36,25 +36,10 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     };
   }
 
-  let userFilter = {
-    AND: [
-      {
-        id: {
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          not_equals: '__loggedInUserId',
-        },
-      },
-    ],
-  };
-
-  if (filter) {
-    userFilter = R.over(R.lensProp('AND'), R.append(filter), userFilter);
-  }
-
   const { notificationTemplate } = await ctx.api.gqlRequest(
     NOTIFICATION_TEMPLATE_QUERY,
     {
-      userFilter,
+      ...(filter ? { userFilter: filter } : {}),
       ...(templateId
         ? {
             id: templateId,

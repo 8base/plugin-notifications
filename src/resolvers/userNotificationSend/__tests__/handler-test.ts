@@ -55,7 +55,25 @@ it('Should send a new user notification.', async () => {
     },
   });
 
-  const result = await handler({ data: { entityId: 'entityId', templateId: 'templateId' } }, CONTEXT);
+  const result = await handler(
+    {
+      data: {
+        entityId: 'entityId',
+        templateId: 'templateId',
+        filter: {
+          AND: [
+            {
+              id: {
+                // eslint-disable-next-line @typescript-eslint/camelcase
+                not_equals: '__loggedInUserId',
+              },
+            },
+          ],
+        },
+      },
+    },
+    CONTEXT,
+  );
 
   expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, CURRENT_USER__QUERY);
 
@@ -180,16 +198,6 @@ it('Should send a new user notification with key.', async () => {
     NOTIFICATION_TEMPLATE_QUERY,
     {
       key: 'templateKey',
-      userFilter: {
-        AND: [
-          {
-            id: {
-              // eslint-disable-next-line @typescript-eslint/camelcase
-              not_equals: '__loggedInUserId',
-            },
-          },
-        ],
-      },
     },
     {
       checkPermissions: false,
