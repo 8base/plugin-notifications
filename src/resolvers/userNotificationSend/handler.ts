@@ -7,6 +7,7 @@ type UserNotificationSendResponse = {
   data: {
     success: boolean;
   };
+  errors?: Array<Record<string, any>>;
 };
 
 export default async (event: any, ctx: any): Promise<UserNotificationSendResponse> => {
@@ -16,7 +17,24 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     user: { id: userId },
   } = await ctx.api.gqlRequest(CURRENT_USER__QUERY);
 
-  const { entityId, notificationTemplateId, filter } = event.data;
+  const { entityId, templateId, templateKey, filter } = event.data;
+
+  if (!templateKey && !templateId) {
+    return {
+      data: {
+        success: false,
+      },
+      errors: [
+        {
+          message: 'The request is invalid.',
+          code: 'ValidationError',
+          details: {
+            query: 'Please specify exactly one template filter parameter.',
+          },
+        },
+      ],
+    };
+  }
 
   let userFilter = {
     AND: [
@@ -36,8 +54,12 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
   const { notificationTemplate } = await ctx.api.gqlRequest(
     NOTIFICATION_TEMPLATE_QUERY,
     {
-      id: notificationTemplateId,
       userFilter,
+      ...(templateId
+        ? {
+            id: templateId,
+          }
+        : { key: templateKey }),
     },
     {
       checkPermissions: false,
@@ -59,9 +81,11 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     {
       data: {
         template: {
-          connect: {
-            id: notificationTemplateId,
-          },
+          connect: templateId
+            ? {
+                id: templateId,
+              }
+            : { key: templateKey },
         },
         actor: {
           connect: {

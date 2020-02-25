@@ -9,8 +9,8 @@ export const CURRENT_USER__QUERY = gql`
 `;
 
 export const NOTIFICATION_TEMPLATE_QUERY = gql`
-  query NotificationTemplate($id: ID!, $userFilter: UserFilter) {
-    notificationTemplate(id: $id) {
+  query NotificationTemplate($id: ID, $key: String, $userFilter: UserFilter) {
+    notificationTemplate(id: $id, key: $key) {
       entityType
       roles {
         items {
