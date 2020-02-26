@@ -1,7 +1,12 @@
 import * as R from 'ramda';
 import * as Handlebars from 'handlebars';
+import { DateTime } from 'luxon';
 import { generateNotificationsQuery, TableSchema } from './generateNotificationsQuery';
 import { TABLES_SCHEMA_QUERY } from './queries';
+
+Handlebars.registerHelper('dt', (format: string, dt: string) => {
+  return DateTime.fromISO(dt).toFormat(format);
+});
 
 type UserNotification = {
   id: string;

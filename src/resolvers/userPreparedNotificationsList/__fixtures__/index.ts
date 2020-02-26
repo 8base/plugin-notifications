@@ -1901,6 +1901,7 @@ export const NOTIFICATIONS_LIST_RESPONSE = {
           entity: {
             post: {
               id: 'postId',
+              createdAt: '2019-10-30T15:05:48.988Z',
               title: 'post title',
               message: 'post message',
             },
@@ -1908,7 +1909,7 @@ export const NOTIFICATIONS_LIST_RESPONSE = {
           template: {
             entityType: 'Posts',
             title: 'New post "{{ post.title }}"',
-            message: '{{ actor.firstName }} {{ actor.lastName }} created a new post "{{ post.title }}"',
+            message: `{{ actor.firstName }} {{ actor.lastName }} created a new post "{{ post.title }}" {{dt "f" post.createdAt }}`,
           },
           actor: {
             id: 'actorId',
