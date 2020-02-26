@@ -9,6 +9,7 @@
     "to-plugin": "find . -name '*.graphql' -exec sed -i '' \"s/type Mutation/type NotificationsMutation/g; s/type Query/type NotificationsQuery/g;\" {} +"
   },
   "dependencies": {
+    "@8base/error-codes": "^1.0.21",
     "@types/handlebars": "^4.1.0",
     "@types/ramda": "^0.26.40",
     "graphql": "^14.6.0",

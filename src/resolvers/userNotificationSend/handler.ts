@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 import * as pluralize from 'pluralize';
+import errorCodes from '@8base/error-codes';
 
 import { CURRENT_USER__QUERY, NOTIFICATION_TEMPLATE_QUERY, NOTIFICATION_CREATE_MUTATION } from './queries';
 
@@ -27,7 +28,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
       errors: [
         {
           message: 'The request is invalid.',
-          code: 'ValidationError',
+          code: errorCodes.ValidationErrorCode,
           details: {
             query: 'Please specify exactly one template filter parameter.',
           },
