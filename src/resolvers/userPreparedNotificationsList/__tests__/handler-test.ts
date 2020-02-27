@@ -17,7 +17,7 @@ it('Should returns user prepared notifications list.', async () => {
 
   CONTEXT.api.gqlRequest.mockResolvedValueOnce(NOTIFICATIONS_LIST_RESPONSE);
 
-  const result = await handler({}, CONTEXT);
+  const result = await handler({ data: { timezone: 'America/Los_Angeles' } }, CONTEXT);
 
   expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, TABLES_SCHEMA_QUERY);
 
@@ -30,7 +30,7 @@ it('Should returns user prepared notifications list.', async () => {
       items: [
         {
           title: 'New post "post title"',
-          message: 'Vladimir Osipov created a new post "post title" 10/30/2019, 6:05 PM',
+          message: 'Vladimir Osipov created a new post "post title" 10/30/2019, 8:05 AM',
           id: 'notficationId',
           read: false,
           createdAt: '2019-10-30T15:05:48.988Z',

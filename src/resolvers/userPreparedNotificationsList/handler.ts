@@ -4,10 +4,6 @@ import { DateTime } from 'luxon';
 import { generateNotificationsQuery, TableSchema } from './generateNotificationsQuery';
 import { TABLES_SCHEMA_QUERY } from './queries';
 
-Handlebars.registerHelper('dt', (format: string, dt: string) => {
-  return DateTime.fromISO(dt).toFormat(format);
-});
-
 type UserNotification = {
   id: string;
   read: boolean;
@@ -43,6 +39,14 @@ type UserPreparedNotificationsListResponse = {
 };
 
 export default async (event: any, ctx: any): Promise<UserPreparedNotificationsListResponse> => {
+  const { timezone } = event.data;
+
+  Handlebars.registerHelper('dt', (format: string, dt: string) => {
+    return DateTime.fromISO(dt)
+      .setZone(timezone || DateTime.local().zoneName)
+      .toFormat(format);
+  });
+
   const tablesSchemaResponse = await ctx.api.gqlRequest(TABLES_SCHEMA_QUERY);
 
   const schema: TableSchema[] | undefined = R.path(['system', 'tablesList', 'items'], tablesSchemaResponse);
