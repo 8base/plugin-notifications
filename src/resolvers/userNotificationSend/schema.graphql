@@ -4,7 +4,7 @@ type UserNotificationSendResponse {
 
 extend type NotificationsMutation {
   userNotificationSend(
-    entityId: ID!
+    entity: NotificationsEntityRelationInput!
     templateId: ID
     templateKey: String
     filter: UserFilter

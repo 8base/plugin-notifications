@@ -1,5 +1,4 @@
 import * as R from 'ramda';
-import * as pluralize from 'pluralize';
 import errorCodes from '@8base/error-codes';
 
 import { CURRENT_USER__QUERY, NOTIFICATION_TEMPLATE_QUERY, NOTIFICATION_CREATE_MUTATION } from './queries';
@@ -18,7 +17,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     user: { id: userId },
   } = await ctx.api.gqlRequest(CURRENT_USER__QUERY);
 
-  const { entityId, templateId, templateKey, filter } = event.data;
+  const { entity, templateId, templateKey, filter } = event.data;
 
   if (!templateKey && !templateId) {
     return {
@@ -58,10 +57,6 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     R.flatten,
   )(notificationTemplate);
 
-  let entityItem = pluralize(notificationTemplate.entityType, 1);
-
-  entityItem = entityItem.charAt(0).toLowerCase() + entityItem.slice(1);
-
   await ctx.api.gqlRequest(
     NOTIFICATION_CREATE_MUTATION,
     {
@@ -85,15 +80,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
             },
           })),
         },
-        entity: {
-          create: {
-            [entityItem]: {
-              connect: {
-                id: entityId,
-              },
-            },
-          },
-        },
+        entity,
       },
     },
     {

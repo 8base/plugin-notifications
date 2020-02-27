@@ -58,7 +58,7 @@ it('Should send a new user notification.', async () => {
   const result = await handler(
     {
       data: {
-        entityId: 'entityId',
+        entity: { create: { myPost: { connect: { id: 'entityId' } } } },
         templateId: 'templateId',
         filter: {
           AND: [
@@ -189,7 +189,10 @@ it('Should send a new user notification with key.', async () => {
     },
   });
 
-  const result = await handler({ data: { entityId: 'entityId', templateKey: 'templateKey' } }, CONTEXT);
+  const result = await handler(
+    { data: { entity: { create: { myPost: { connect: { id: 'entityId' } } } }, templateKey: 'templateKey' } },
+    CONTEXT,
+  );
 
   expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, CURRENT_USER__QUERY);
 
