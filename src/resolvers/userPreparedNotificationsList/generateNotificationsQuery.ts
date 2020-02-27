@@ -113,7 +113,7 @@ export const generateNotificationsQuery = (tablesSchema: TableSchema[]) => {
       R.complement(R.propEq('fieldType', 'RELATION')),
     ]),
     R.anyPass([R.propEq('isList', true), R.propEq('fieldType', 'SMART')]),
-    R.anyPass([R.propEq('fieldType', 'RELATION'), R.propEq('fieldType', 'SMART')]),
+    R.anyPass([R.propEq('isList', true), R.propEq('fieldType', 'RELATION'), R.propEq('fieldType', 'SMART')]),
   ]);
 
   const queryLens = R.lensPath([
