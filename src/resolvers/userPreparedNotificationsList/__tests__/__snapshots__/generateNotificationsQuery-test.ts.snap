@@ -32,6 +32,13 @@ exports[`Should returns user notifications. 1`] = `
               firstName
               lastName
               timezone
+              avatar {
+                id
+                uploadUrl
+                downloadUrl
+                shareUrl
+                filename
+              }
             }
             title
             message
@@ -52,6 +59,13 @@ exports[`Should returns user notifications. 1`] = `
               firstName
               lastName
               timezone
+              avatar {
+                id
+                uploadUrl
+                downloadUrl
+                shareUrl
+                filename
+              }
             }
             message
             post {

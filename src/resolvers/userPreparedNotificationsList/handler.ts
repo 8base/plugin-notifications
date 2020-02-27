@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 import * as Handlebars from 'handlebars';
 import { DateTime } from 'luxon';
+
 import { generateNotificationsQuery, TableSchema } from './generateNotificationsQuery';
 import { TABLES_SCHEMA_QUERY } from './queries';
 

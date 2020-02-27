@@ -29,6 +29,7 @@ const getTableFieldsByName = (tablesSchema: TableSchema[], tableName: string): T
 };
 
 const isRelationField = (tableField: TableFieldSchema): boolean => R.propEq('fieldType', 'RELATION', tableField);
+const isFileField = (tableField: TableFieldSchema): boolean => R.propEq('fieldType', 'FILE', tableField);
 
 const generateTableFieldNode = (
   tableField: TableFieldSchema,
@@ -57,6 +58,27 @@ const generateTableFieldNode = (
         field,
       );
     }
+  } else if (isFileField(tableField) && depth <= 3) {
+    const refTableName = 'Files';
+
+    if (refTableName) {
+      field = R.assoc(
+        'selectionSet',
+        {
+          kind: 'SelectionSet',
+          selections: ['id', 'uploadUrl', 'downloadUrl', 'shareUrl', 'filename'].map(name => ({
+            kind: 'Field',
+            name: {
+              kind: 'Name',
+              value: name,
+            },
+            arguments: [],
+            directives: [],
+          })),
+        },
+        field,
+      );
+    }
   }
 
   return field;
@@ -71,7 +93,7 @@ const generateTableFieldsSelectionSet = (
   const tableFields = getTableFieldsByName(tablesSchema, tableName);
 
   const selections = R.pipe<TableFieldSchema[], TableFieldSchema[], FieldNode[]>(
-    R.reject(filters ? filters[depth] : R.F),
+    R.reject(filters && filters[depth] ? filters[depth] : R.F),
     R.map((field: TableFieldSchema) => generateTableFieldNode(field, tablesSchema, filters, depth)),
   )(tableFields);
 
@@ -91,7 +113,7 @@ export const generateNotificationsQuery = (tablesSchema: TableSchema[]) => {
       R.complement(R.propEq('fieldType', 'RELATION')),
     ]),
     R.anyPass([R.propEq('isList', true), R.propEq('fieldType', 'SMART')]),
-    R.anyPass([R.propEq('fieldType', 'RELATION'), R.propEq('fieldType', 'FILE'), R.propEq('fieldType', 'SMART')]),
+    R.anyPass([R.propEq('fieldType', 'RELATION'), R.propEq('fieldType', 'SMART')]),
   ]);
 
   const queryLens = R.lensPath([
