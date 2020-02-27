@@ -1909,7 +1909,7 @@ export const NOTIFICATIONS_LIST_RESPONSE = {
           template: {
             entityType: 'Posts',
             title: 'New post "{{ post.title }}"',
-            message: `{{ actor.firstName }} {{ actor.lastName }} created a new post "{{ post.title }}" {{dt "f" post.createdAt }}`,
+            message: `{{ actor.firstName }} {{ actor.lastName }} created a new post "{{ post.title }}" {{dt "f" post.createdAt }} {{ meta.origin }}`,
           },
           actor: {
             id: 'actorId',

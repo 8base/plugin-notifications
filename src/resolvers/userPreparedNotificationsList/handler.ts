@@ -40,7 +40,7 @@ type UserPreparedNotificationsListResponse = {
 };
 
 export default async (event: any, ctx: any): Promise<UserPreparedNotificationsListResponse> => {
-  const { timezone } = event.data;
+  const { timezone, meta = {} } = event.data;
 
   Handlebars.registerHelper('dt', (format: string, dt: string) => {
     return DateTime.fromISO(dt)
@@ -69,7 +69,7 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
 
   const userNotifications: UserPreparedNotification[] = R.map(
     ({ id, read, createdAt, notification: { actor, template, entity } }) => {
-      const context = { ...entity, actor };
+      const context = { ...entity, actor, meta };
 
       const title = Handlebars.compile(template.title)(context);
       const message = Handlebars.compile(template.message)(context);
