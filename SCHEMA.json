@@ -1,0 +1,697 @@
+{
+  "tables": [
+    {
+      "id": "5e381954a399090008810ab5",
+      "name": "NotificationTemplates",
+      "displayName": "Notification Templates",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e381954a399090008810ab7",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e381954a399090008810ab8",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e381954a399090008810abb",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e381954a399090008810ac1",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": {
+            "refFieldName": null,
+            "refFieldDisplayName": null,
+            "relationTableName": null,
+            "relationFieldName": "createdById",
+            "refTable": {
+              "id": "5e381797dcb2b80008734826",
+              "name": "Users"
+            },
+            "refFieldIsList": null,
+            "refFieldIsRequired": null
+          }
+        },
+        {
+          "id": "5e54e7e7ebe7510007ea2455",
+          "name": "key",
+          "displayName": "Key",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e381a21bfa6260007cc4d11",
+          "name": "name",
+          "displayName": "Name",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e381a2ebfa6260007cc619f",
+          "name": "description",
+          "displayName": "Description",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e38198edcb2b80008737698",
+          "name": "title",
+          "displayName": "Title",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e381996bfa6260007cc0929",
+          "name": "message",
+          "displayName": "Message",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e3819f58caf0200089213e9",
+          "name": "entityType",
+          "displayName": "Entity Type",
+          "description": null,
+          "fieldType": "TEXT",
+          "fieldTypeAttributes": {
+            "format": "UNFORMATTED",
+            "fieldSize": 100
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        },
+        {
+          "id": "5e381b488caf02000892ada5",
+          "name": "notifications",
+          "displayName": "Notifications",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "template",
+            "refFieldDisplayName": "Template",
+            "relationTableName": "NotificationTemplateNotifications",
+            "relationFieldName": "notificationTemplateBId",
+            "refTable": {
+              "id": "5e381adf8caf0200089283b8",
+              "name": "Notifications"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": true
+          }
+        },
+        {
+          "id": "5e381ccc2e8853000806ed89",
+          "name": "roles",
+          "displayName": "Roles",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "notificationTemplates",
+            "refFieldDisplayName": "Notification Templates",
+            "relationTableName": "NotificationTemplatesRoles",
+            "relationFieldName": "notificationTemplateAId",
+            "refTable": {
+              "id": "5e381797dcb2b800087348c2",
+              "name": "Roles"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "5e381adf8caf0200089283b8",
+      "name": "Notifications",
+      "displayName": "Notifications",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e381adf8caf0200089283ba",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e381adf8caf0200089283bb",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e381adf8caf0200089283be",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e381adf8caf0200089283c4",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": {
+            "refFieldName": null,
+            "refFieldDisplayName": null,
+            "relationTableName": null,
+            "relationFieldName": "createdById",
+            "refTable": {
+              "id": "5e381797dcb2b80008734826",
+              "name": "Users"
+            },
+            "refFieldIsList": null,
+            "refFieldIsRequired": null
+          }
+        },
+        {
+          "id": "5e381be2dcb2b800087524e7",
+          "name": "actor",
+          "displayName": "Actor",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "sentNotifications",
+            "refFieldDisplayName": "Sent Notifications",
+            "relationTableName": "NotificationsUser",
+            "relationFieldName": "notificationAId",
+            "refTable": {
+              "id": "5e381797dcb2b80008734826",
+              "name": "Users"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e3a7d3dd8955e00087ab73b",
+          "name": "userNotifications",
+          "displayName": "User Notifications",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "notification",
+            "refFieldDisplayName": "Notification",
+            "relationTableName": "NotificationUserNotifications",
+            "relationFieldName": "notificationBId",
+            "refTable": {
+              "id": "5e3a7ca5d8955e00087a44a2",
+              "name": "UserNotifications"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": true
+          }
+        },
+        {
+          "id": "5e381b488caf02000892ada2",
+          "name": "template",
+          "displayName": "Template",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "notifications",
+            "refFieldDisplayName": "Notifications",
+            "relationTableName": "NotificationTemplateNotifications",
+            "relationFieldName": "notificationAId",
+            "refTable": {
+              "id": "5e381954a399090008810ab5",
+              "name": "NotificationTemplates"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e38375b9564db0007a4ee0d",
+          "name": "entity",
+          "displayName": "Entity",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "notification",
+            "refFieldDisplayName": "Notification",
+            "relationTableName": "NotificationEntityNotifications",
+            "relationFieldName": "notificationBId",
+            "refTable": {
+              "id": "5e3836df9564db0007a4a525",
+              "name": "NotificationEntities"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "5e3836df9564db0007a4a525",
+      "name": "NotificationEntities",
+      "displayName": "Notification Entities",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e3836df9564db0007a4a527",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e3836df9564db0007a4a528",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e3836df9564db0007a4a52b",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e3836df9564db0007a4a531",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": {
+            "refFieldName": null,
+            "refFieldDisplayName": null,
+            "relationTableName": null,
+            "relationFieldName": "createdById",
+            "refTable": {
+              "id": "5e381797dcb2b80008734826",
+              "name": "Users"
+            },
+            "refFieldIsList": null,
+            "refFieldIsRequired": null
+          }
+        },
+        {
+          "id": "5e38375b9564db0007a4ee0a",
+          "name": "notification",
+          "displayName": "Notification",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": true,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "entity",
+            "refFieldDisplayName": "Entity",
+            "relationTableName": "NotificationEntityNotifications",
+            "relationFieldName": "notificationEntityAId",
+            "refTable": {
+              "id": "5e381adf8caf0200089283b8",
+              "name": "Notifications"
+            },
+            "refFieldIsList": false,
+            "refFieldIsRequired": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "5e3a7ca5d8955e00087a44a2",
+      "name": "UserNotifications",
+      "displayName": "User Notifications",
+      "isSystem": false,
+      "fields": [
+        {
+          "id": "5e3a7ca5d8955e00087a44a4",
+          "name": "id",
+          "displayName": "ID",
+          "description": null,
+          "fieldType": "ID",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": true,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e3a7ca5d8955e00087a44a5",
+          "name": "createdAt",
+          "displayName": "Created At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e3a7ca5d8955e00087a44a8",
+          "name": "updatedAt",
+          "displayName": "Updated At",
+          "description": null,
+          "fieldType": "DATE",
+          "fieldTypeAttributes": {
+            "format": "DATETIME"
+          },
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": null
+        },
+        {
+          "id": "5e3a7ca5d8955e00087a44ae",
+          "name": "createdBy",
+          "displayName": "Created By",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": false,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": true,
+          "isMeta": true,
+          "relation": {
+            "refFieldName": null,
+            "refFieldDisplayName": null,
+            "relationTableName": null,
+            "relationFieldName": "createdById",
+            "refTable": {
+              "id": "5e381797dcb2b80008734826",
+              "name": "Users"
+            },
+            "refFieldIsList": null,
+            "refFieldIsRequired": null
+          }
+        },
+        {
+          "id": "5e3a7ceed8955e00087a635b",
+          "name": "notifier",
+          "displayName": "Notifier",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": false,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "userNotifications",
+            "refFieldDisplayName": "User Notifications",
+            "relationTableName": "UserUserNotifications",
+            "relationFieldName": "userNotificationAId",
+            "refTable": {
+              "id": "5e381797dcb2b80008734826",
+              "name": "Users"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e3a7d3dd8955e00087ab73e",
+          "name": "notification",
+          "displayName": "Notification",
+          "description": null,
+          "fieldType": "RELATION",
+          "fieldTypeAttributes": null,
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": null,
+          "isSystem": false,
+          "isMeta": false,
+          "relation": {
+            "refFieldName": "userNotifications",
+            "refFieldDisplayName": "User Notifications",
+            "relationTableName": "NotificationUserNotifications",
+            "relationFieldName": "userNotificationAId",
+            "refTable": {
+              "id": "5e381adf8caf0200089283b8",
+              "name": "Notifications"
+            },
+            "refFieldIsList": true,
+            "refFieldIsRequired": false
+          }
+        },
+        {
+          "id": "5e3a7cc2d8955e00087a5450",
+          "name": "read",
+          "displayName": "Read",
+          "description": null,
+          "fieldType": "SWITCH",
+          "fieldTypeAttributes": {
+            "format": "TRUE_FALSE",
+            "listOptions": null
+          },
+          "isList": false,
+          "isRequired": true,
+          "isUnique": null,
+          "defaultValue": "false",
+          "isSystem": false,
+          "isMeta": false,
+          "relation": null
+        }
+      ]
+    }
+  ],
+  "version": "0.0.93"
+}
