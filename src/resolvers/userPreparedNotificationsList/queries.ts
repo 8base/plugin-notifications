@@ -1,14 +1,23 @@
 import gql from 'graphql-tag';
 
 export const USER_NOTIFICATIONS_LIST_QUERY = gql`
-  query UserNotifications {
-    userNotificationsList {
+  query UserNotifications(
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+    $filter: UserNotificationFilter
+    $sort: [UserNotificationSort!]
+  ) {
+    userNotificationsList(after: $after, before: $before, first: $first, last: $last, filter: $filter, sort: $sort) {
       items {
         notification {
           template {
+            key
             entityType
             title
             message
+            coverImageUrl
           }
           actor {
             id
