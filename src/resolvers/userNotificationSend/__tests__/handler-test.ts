@@ -39,6 +39,9 @@ it('Should send a new user notification.', async () => {
             users: {
               items: [
                 {
+                  id: 'userNotifierId1',
+                },
+                {
                   id: 'userNotifierId3',
                 },
               ],
