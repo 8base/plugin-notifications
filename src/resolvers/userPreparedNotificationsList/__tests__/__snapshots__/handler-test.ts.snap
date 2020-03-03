@@ -1,14 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Should returns user prepared notifications list. 1`] = `
-"query UserNotifications {
-  userNotificationsList {
+"query UserNotifications($after: String, $before: String, $first: Int, $last: Int, $filter: UserNotificationFilter, $sort: [UserNotificationSort!]) {
+  userNotificationsList(after: $after, before: $before, first: $first, last: $last, filter: $filter, sort: $sort) {
     items {
       notification {
         template {
+          key
           entityType
           title
           message
+          coverImageUrl
         }
         actor {
           id

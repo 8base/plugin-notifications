@@ -34,6 +34,8 @@ it('Should returns user prepared notifications list.', async () => {
           id: 'notficationId',
           read: false,
           createdAt: '2019-10-30T15:05:48.988Z',
+          type: 'post_created',
+          coverImageUrl: 'https://cdn.filestackcontent.com/security=p:policy,s:signature/fileHandle',
         },
       ],
       count: 0,
