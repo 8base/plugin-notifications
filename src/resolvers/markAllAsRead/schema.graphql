@@ -1,0 +1,13 @@
+type MarkAllAsReadResponse {
+  success: Boolean!
+  updatedIds: [String!]!
+  failedIds: [String!]!
+}
+
+extend type NotificationsMutation {
+  """
+  Marks either all or specified via `filter` user notifications as read.
+  By default filter is `{ notifier: { id: { equals: "__loggedInUserId" } }, read: { equals: false } }`
+  """
+  markAllAsRead(filter: UserNotificationFilter): MarkAllAsReadResponse!
+}
