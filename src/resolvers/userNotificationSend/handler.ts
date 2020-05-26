@@ -51,6 +51,7 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     R.pathOr([], ['roles', 'items']),
     R.map(R.pathOr([], ['users', 'items'])),
     R.flatten,
+    R.uniqWith<{ id: string }, {}>((a, b) => a.id === b.id),
   )(notificationTemplate);
 
   const {
