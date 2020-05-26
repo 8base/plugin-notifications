@@ -11,12 +11,6 @@ type UserNotificationSendResponse = {
 };
 
 export default async (event: any, ctx: any): Promise<UserNotificationSendResponse> => {
-  let success = false;
-
-  const {
-    user: { id: userId },
-  } = await ctx.api.gqlRequest(CURRENT_USER__QUERY);
-
   const { entity, templateId, templateKey, filter } = event.data;
 
   if (!templateKey && !templateId) {
@@ -35,6 +29,8 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
       ],
     };
   }
+
+  const currentUserPromise = ctx.api.gqlRequest(CURRENT_USER__QUERY);
 
   const { notificationTemplate } = await ctx.api.gqlRequest(
     NOTIFICATION_TEMPLATE_QUERY,
@@ -56,6 +52,10 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     R.map(R.pathOr([], ['users', 'items'])),
     R.flatten,
   )(notificationTemplate);
+
+  const {
+    user: { id: userId },
+  } = await currentUserPromise;
 
   await ctx.api.gqlRequest(
     NOTIFICATION_CREATE_MUTATION,
@@ -88,11 +88,9 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     },
   );
 
-  success = true;
-
   return {
     data: {
-      success,
+      success: true,
     },
   };
 };

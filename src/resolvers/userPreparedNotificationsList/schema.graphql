@@ -1,8 +1,10 @@
 type UserPreparedNotification {
   id: ID
   createdAt: DateTime
-  title: String
-  message: String
+  type: String!
+  title: String!
+  message: String!
+  coverImageUrl: String
   read: Boolean
 }
 
@@ -12,5 +14,15 @@ type UserPreparedNotificationsResponse {
 }
 
 extend type NotificationsQuery {
-  userPreparedNotificationsList(timezone: String, meta: JSON): UserPreparedNotificationsResponse
+  userPreparedNotificationsList(
+    timezone: String
+    meta: JSON
+    # userNotificationsList arguments
+    after: String
+    before: String
+    first: Int
+    last: Int
+    filter: UserNotificationFilter
+    sort: [UserNotificationSort!]
+  ): UserPreparedNotificationsResponse
 }

@@ -12,9 +12,11 @@ type UserNotification = {
   notification: {
     entity: object;
     template: {
+      key: string;
       entityType: string;
       title: string;
       message: string;
+      coverImageUrl?: string | null;
     };
     actor: {
       id: string;
@@ -27,9 +29,11 @@ type UserNotification = {
 
 type UserPreparedNotification = {
   id: string;
+  type: string;
   title: string;
   message: string;
   read: boolean;
+  coverImageUrl?: string | null;
 };
 
 type UserPreparedNotificationsListResponse = {
@@ -40,7 +44,7 @@ type UserPreparedNotificationsListResponse = {
 };
 
 export default async (event: any, ctx: any): Promise<UserPreparedNotificationsListResponse> => {
-  const { timezone, meta = {} } = event.data;
+  const { timezone, meta = {}, ...userNotificationsQueryArgs } = event.data;
 
   Handlebars.registerHelper('dt', (format: string, dt: string) => {
     return DateTime.fromISO(dt)
@@ -58,7 +62,7 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
 
   const notificationQuery = generateNotificationsQuery(schema);
 
-  const userNotificationsListResponse = await ctx.api.gqlRequest(notificationQuery);
+  const userNotificationsListResponse = await ctx.api.gqlRequest(notificationQuery, userNotificationsQueryArgs);
 
   const notifications: UserNotification[] = R.pathOr(
     [],
@@ -73,8 +77,10 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
 
       const title = Handlebars.compile(template.title)(context);
       const message = Handlebars.compile(template.message)(context);
+      const coverImageUrl = Handlebars.compile(template.coverImageUrl)(context);
+      const type = template.key;
 
-      return { title, message, id, read, createdAt };
+      return { id, type, title, message, coverImageUrl, read, createdAt };
     },
     notifications,
   );
