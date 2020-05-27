@@ -1,5 +1,6 @@
 type UserPreparedNotification {
   id: ID
+  entityId: ID
   createdAt: DateTime
   type: String!
   title: String!
