@@ -30,6 +30,7 @@ type UserNotification = {
 
 type UserPreparedNotification = {
   id: string;
+  entityId: string;
   type: string;
   title: string;
   message: string;
