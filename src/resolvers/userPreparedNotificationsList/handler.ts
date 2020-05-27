@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 import * as Handlebars from 'handlebars';
 import { DateTime } from 'luxon';
+import { SchemaNameGenerator } from '@8base/schema-name-generator';
 
 import { generateNotificationsQuery, TableSchema } from './generateNotificationsQuery';
 import { TABLES_SCHEMA_QUERY } from './queries';
@@ -10,7 +11,7 @@ type UserNotification = {
   read: boolean;
   createdAt: string;
   notification: {
-    entity: object;
+    entity: Record<string, any>;
     template: {
       key: string;
       entityType: string;
@@ -75,12 +76,15 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
     ({ id, read, createdAt, notification: { actor, template, entity } }) => {
       const context = { ...entity, actor, meta };
 
+      const entityName = SchemaNameGenerator.getTableItemFieldName(template.entityType);
+
       const title = Handlebars.compile(template.title)(context);
       const message = Handlebars.compile(template.message)(context);
-      const coverImageUrl = Handlebars.compile(template.coverImageUrl)(context);
+      const coverImageUrl = Handlebars.compile(template.coverImageUrl || '')(context);
       const type = template.key;
+      const entityId = entity[entityName].id;
 
-      return { id, type, title, message, coverImageUrl, read, createdAt };
+      return { id, entityId, type, title, message, coverImageUrl, read, createdAt };
     },
     notifications,
   );
