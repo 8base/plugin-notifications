@@ -32,6 +32,7 @@ it('Should returns user prepared notifications list.', async () => {
           title: 'New post "post title"',
           message: 'Vladimir Osipov created a new post "post title" 10/30/2019, 8:05 AM test',
           id: 'notficationId',
+          entityId: 'postId',
           read: false,
           createdAt: '2019-10-30T15:05:48.988Z',
           type: 'post_created',
