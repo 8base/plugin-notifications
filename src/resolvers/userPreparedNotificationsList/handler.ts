@@ -73,6 +73,11 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
   );
   const count = R.pathOr(0, ['userNotificationsList', 'count'], userNotificationsListResponse);
 
+  const filteredNotification = R.filter(({ notification: { template, entity } }) => {
+    const entityName = SchemaNameGenerator.getTableItemFieldName(template.entityType);
+    return Boolean(entity[entityName]);
+  }, notifications);
+
   const userNotifications: UserPreparedNotification[] = R.map(
     ({ id, read, createdAt, notification: { actor, template, entity } }) => {
       const context = { ...entity, actor, meta };
@@ -87,7 +92,7 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
 
       return { id, entityId, type, title, message, coverImageUrl, read, createdAt };
     },
-    notifications,
+    filteredNotification,
   );
 
   return {
