@@ -11,6 +11,14 @@ export type TableFieldSchema = {
       name: string;
     };
   };
+  fieldType: string;
+  fieldTypeAttributes?: {
+    format: string;
+    innerFields: Array<{
+      name: string;
+      fieldType: string;
+    }>;
+  } | null;
 };
 
 export type TableSchema = object;
@@ -30,6 +38,7 @@ const getTableFieldsByName = (tablesSchema: TableSchema[], tableName: string): T
 
 const isRelationField = (tableField: TableFieldSchema): boolean => R.propEq('fieldType', 'RELATION', tableField);
 const isFileField = (tableField: TableFieldSchema): boolean => R.propEq('fieldType', 'FILE', tableField);
+const isSmartField = (tableField: TableFieldSchema): boolean => R.propEq('fieldType', 'SMART', tableField);
 
 const generateTableFieldNode = (
   tableField: TableFieldSchema,
@@ -79,6 +88,25 @@ const generateTableFieldNode = (
         field,
       );
     }
+  } else if (isSmartField(tableField) && depth <= 3) {
+    const innerFields = R.pathOr([], ['fieldTypeAttributes', 'innerFields'], tableField);
+
+    field = R.assoc(
+      'selectionSet',
+      {
+        kind: 'SelectionSet',
+        selections: innerFields.map(({ name }) => ({
+          kind: 'Field',
+          name: {
+            kind: 'Name',
+            value: name,
+          },
+          arguments: [],
+          directives: [],
+        })),
+      },
+      field,
+    );
   }
 
   return field;
@@ -109,11 +137,10 @@ export const generateNotificationsQuery = (tablesSchema: TableSchema[]) => {
       R.propEq('isSystem', true),
       R.propEq('isList', true),
       R.propEq('name', 'notification'),
-      R.propEq('fieldType', 'SMART'),
       R.complement(R.propEq('fieldType', 'RELATION')),
     ]),
-    R.anyPass([R.propEq('isList', true), R.propEq('fieldType', 'SMART')]),
-    R.anyPass([R.propEq('isList', true), R.propEq('fieldType', 'RELATION'), R.propEq('fieldType', 'SMART')]),
+    R.anyPass([R.propEq('isList', true)]),
+    R.anyPass([R.propEq('isList', true), R.propEq('fieldType', 'RELATION')]),
   ]);
 
   const queryLens = R.lensPath([

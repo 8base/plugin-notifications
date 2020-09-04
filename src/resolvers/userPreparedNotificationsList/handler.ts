@@ -45,6 +45,55 @@ type UserPreparedNotificationsListResponse = {
   };
 };
 
+type SmartAddress = {
+  country?: string | null;
+  street1?: string | null;
+  street2?: string | null;
+  zip?: string | null;
+  city?: string | null;
+  state?: string | null;
+};
+
+type SmartPhone = {
+  code?: string | null;
+  number?: string | null;
+};
+
+const stringifyAddress = (address?: SmartAddress | null) => {
+  if (!address) {
+    return '';
+  }
+
+  const { street1, street2, city, state, zip } = address;
+
+  const value = [street1, street2, city, state, zip]
+    .filter(val => !!val)
+    .join(', ')
+    .trim();
+
+  if (!value) {
+    return '';
+  }
+
+  return value;
+};
+
+const stringifyPhone = (phone?: SmartPhone | null) => {
+  if (!phone || !phone?.number) {
+    return '';
+  }
+
+  const { code, number } = phone;
+
+  const part1 = number.slice(0, 3);
+  const part2 = number.slice(3, 6);
+  const part3 = number.slice(6);
+
+  const phoneNumber = `(${part1}) ${part2}-${part3}`;
+
+  return code ? `+${code} ${phoneNumber}` : phoneNumber;
+};
+
 export default async (event: any, ctx: any): Promise<UserPreparedNotificationsListResponse> => {
   const { timezone, meta = {}, ...userNotificationsQueryArgs } = event.data;
 
@@ -53,6 +102,9 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
       .setZone(timezone || DateTime.local().zoneName)
       .toFormat(format);
   });
+
+  Handlebars.registerHelper('address', stringifyAddress);
+  Handlebars.registerHelper('phone', stringifyPhone);
 
   const tablesSchemaResponse = await ctx.api.gqlRequest(TABLES_SCHEMA_QUERY);
 
