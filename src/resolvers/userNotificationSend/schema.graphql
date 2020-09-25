@@ -8,5 +8,6 @@ extend type NotificationsMutation {
     templateId: ID
     templateKey: String
     filter: UserFilter
+    actorId: ID
   ): UserNotificationSendResponse
 }

@@ -78,7 +78,7 @@ it('Should send a new user notification.', async () => {
     CONTEXT,
   );
 
-  expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, CURRENT_USER__QUERY);
+  expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, CURRENT_USER__QUERY, {}, { checkPermissions: false });
 
   expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(
     2,
@@ -197,7 +197,7 @@ it('Should send a new user notification with key.', async () => {
     CONTEXT,
   );
 
-  expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, CURRENT_USER__QUERY);
+  expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(1, CURRENT_USER__QUERY, {}, { checkPermissions: false });
 
   expect(CONTEXT.api.gqlRequest).toHaveBeenNthCalledWith(
     2,
