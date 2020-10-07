@@ -123,12 +123,12 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
     ['userNotificationsList', 'items'],
     userNotificationsListResponse,
   );
-  const count = R.pathOr(0, ['userNotificationsList', 'count'], userNotificationsListResponse);
 
   const filteredNotification = R.filter(({ notification: { template, entity } }) => {
     const entityName = SchemaNameGenerator.getTableItemFieldName(template.entityType);
     return Boolean(entity[entityName]);
   }, notifications);
+  const count = filteredNotification.length;
 
   const userNotifications: UserPreparedNotification[] = R.map(
     ({ id, read, createdAt, notification: { actor, template, entity } }) => {
