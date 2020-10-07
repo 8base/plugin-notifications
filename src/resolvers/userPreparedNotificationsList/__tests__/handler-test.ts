@@ -39,7 +39,7 @@ it('Should returns user prepared notifications list.', async () => {
           coverImageUrl: 'https://cdn.filestackcontent.com/security=p:policy,s:signature/fileHandle',
         },
       ],
-      count: 0,
+      count: 1,
     },
   });
 });
