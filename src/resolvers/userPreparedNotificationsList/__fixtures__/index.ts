@@ -1928,6 +1928,34 @@ export const NOTIFICATIONS_LIST_RESPONSE = {
         id: 'notficationId',
         read: false,
       },
+      {
+        notification: {
+          entity: {
+            post: null,
+          },
+          template: {
+            key: 'post_created',
+            entityType: 'Posts',
+            title: 'New post "{{ post.title }}"',
+            message: `{{ actor.firstName }} {{ actor.lastName }} created a new post "{{ post.title }}" {{dt "f" post.createdAt }} {{ meta.origin }}`,
+            coverImageUrl: '{{{ actor.avatar.downloadUrl }}}',
+          },
+          actor: {
+            id: 'actorId',
+            email: 'petrbukov@gmail.com',
+            firstName: 'Petr',
+            lastName: 'Bukov',
+            avatar: {
+              id: 'actorAvatarId',
+              downloadUrl: 'https://cdn.filestackcontent.com/security=p:policy,s:signature/fileHandle',
+            },
+          },
+        },
+        createdAt: '2019-11-30T15:05:48.988Z',
+        id: 'notficationId',
+        read: true,
+      },
     ],
+    count: 2,
   },
 };
