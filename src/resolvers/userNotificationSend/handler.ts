@@ -10,8 +10,8 @@ type UserNotificationSendResponse = {
   errors?: Array<Record<string, any>>;
 };
 
-export default async (event: any, ctx: any): Promise<UserNotificationSendResponse> => {
-  const { entity, templateId, templateKey, filter } = event.data;
+const userNotificationSend = async (event: any, ctx: any): Promise<UserNotificationSendResponse> => {
+  const { entity, templateId, templateKey, filter, actorId } = event.data;
 
   if (!templateKey && !templateId) {
     return {
@@ -30,7 +30,9 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     };
   }
 
-  const currentUserPromise = ctx.api.gqlRequest(CURRENT_USER__QUERY);
+  const {
+    user: { id: userId },
+  } = await ctx.api.gqlRequest(CURRENT_USER__QUERY, {}, { checkPermissions: false });
 
   const { notificationTemplate } = await ctx.api.gqlRequest(
     NOTIFICATION_TEMPLATE_QUERY,
@@ -54,40 +56,41 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     R.uniqWith<{ id: string }, {}>((a, b) => a.id === b.id),
   )(notificationTemplate);
 
-  const {
-    user: { id: userId },
-  } = await currentUserPromise;
-
-  await ctx.api.gqlRequest(
-    NOTIFICATION_CREATE_MUTATION,
-    {
-      data: {
-        template: {
-          connect: templateId
-            ? {
-                id: templateId,
-              }
-            : { key: templateKey },
-        },
-        actor: {
-          connect: {
-            id: userId,
+  try {
+    await ctx.api.gqlRequest(
+      NOTIFICATION_CREATE_MUTATION,
+      {
+        data: {
+          template: {
+            connect: templateId
+              ? {
+                  id: templateId,
+                }
+              : { key: templateKey },
           },
-        },
-        userNotifications: {
-          create: notifiers.map(notifier => ({
-            notifier: {
-              connect: notifier,
+          actor: (actorId || userId) && {
+            connect: {
+              id: actorId || userId,
             },
-          })),
+          },
+          userNotifications: {
+            create: notifiers.map(notifier => ({
+              notifier: {
+                connect: notifier,
+              },
+            })),
+          },
+          entity,
         },
-        entity,
       },
-    },
-    {
-      checkPermissions: false,
-    },
-  );
+      {
+        checkPermissions: false,
+      },
+    );
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
 
   return {
     data: {
@@ -95,3 +98,5 @@ export default async (event: any, ctx: any): Promise<UserNotificationSendRespons
     },
   };
 };
+
+export default userNotificationSend;
