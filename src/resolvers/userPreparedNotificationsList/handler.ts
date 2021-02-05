@@ -134,10 +134,14 @@ export default async (event: any, ctx: any): Promise<UserPreparedNotificationsLi
     ({ id, read, createdAt, notification: { actor, template, entity } }) => {
       const context = { ...entity, actor, meta };
 
+      if (!template.entityType) {
+        throw new Error(`Entity Type field shouldn't be empty`);
+      }
+
       const entityName = SchemaNameGenerator.getTableItemFieldName(template.entityType);
 
-      const title = Handlebars.compile(template.title)(context);
-      const message = Handlebars.compile(template.message)(context);
+      const title = Handlebars.compile(template.title || '')(context);
+      const message = Handlebars.compile(template.message || '')(context);
       const coverImageUrl = Handlebars.compile(template.coverImageUrl || '')(context);
       const type = template.key;
       const entityId = entity[entityName].id;
